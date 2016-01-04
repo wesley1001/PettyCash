@@ -43,7 +43,10 @@ export default React.createClass({
             
             $table.dataTable({
                 language: Constants.dataTableLangEs,
-                retrieve: true
+                retrieve: true,
+                columns: this.state.headerColumns.map((col) => {
+                    return col.key === 'actions' ? { orderable: false } : null;
+                })
             });
         }
     },
@@ -96,13 +99,12 @@ export default React.createClass({
     },
 
     render(){
-
         return(
             <table ref="dataTable" className="table table-condensed table-hover">
                 <thead>
                     <tr className="info">
                         {this.state.headerColumns.map((col) => 
-                            <th key={col.key} className={col.styleClass}>{col.value}</th>
+                            <th key={col.key} className={col.styleClass} style={{borderBottom: 'none'}}>{col.value}</th>
                         )}
                     </tr>
                 </thead>
